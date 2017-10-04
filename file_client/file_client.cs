@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -24,7 +25,17 @@ namespace tcp
 		/// </param>
 		private file_client (string[] args)
 		{
-			// TO DO Your own code
+			IPAddress localAddress = IPAddress.Parse("10.0.0.2");
+			TcpListener clientSocket = new TcpListener(localAddress, PORT);
+			clientSocket.Start();
+			TcpClient client = new TcpClient(args[0], PORT);
+			Console.WriteLine("Connected to server!");
+
+			NetworkStream stream = client.GetStream();
+			receiveFile(args[1], stream);
+			client.GetStream().Close();
+			client.Close();
+			clientSocket.Stop();
 		}
 
 		/// <summary>
@@ -38,7 +49,18 @@ namespace tcp
 		/// </param>
 		private void receiveFile (String fileName, NetworkStream io)
 		{
-			// TO DO Your own code
+			FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+
+			try
+			{
+				io.CopyTo(fs);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				throw;
+			}
+			fs.Close();
 		}
 
 		/// <summary>

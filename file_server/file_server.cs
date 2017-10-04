@@ -52,7 +52,7 @@ namespace tcp
 
 					String requestedFile = LIB.extractFileName(clientData);
 					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
-						//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
+					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
 					SendFile(requestedFile, fileLength, stream);
 
@@ -95,7 +95,7 @@ namespace tcp
 			io.Flush();
 
 			//Send file
-			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Write);
+			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 			try
 			{
 				fs.CopyTo(io, BUFSIZE);
