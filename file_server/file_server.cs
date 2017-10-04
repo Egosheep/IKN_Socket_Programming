@@ -60,8 +60,6 @@ namespace tcp
 					Console.WriteLine("Close stream");
 					client.Close();
 					Console.WriteLine("Close client");
-					serverSocket.Stop();
-					Console.WriteLine("Stop socket");
 				}
 				catch (Exception e)
 				{
