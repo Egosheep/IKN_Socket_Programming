@@ -28,16 +28,24 @@ namespace tcp
 			IPAddress localAddress = IPAddress.Parse("10.0.0.2");
 			TcpListener clientSocket = new TcpListener(localAddress, PORT);
 			clientSocket.Start();
-			TcpClient client = new TcpClient(args[0], PORT);
 			Console.WriteLine("Connected to server!");
 
+			TcpClient client = new TcpClient(args[0], PORT);
 			NetworkStream stream = client.GetStream();
+			Console.WriteLine("Client stream connected");
+
 			LIB.writeTextTCP(stream, args[1]);
+			Console.WriteLine("Write " + args[1] + " to server");
 			long fileSize = LIB.getFileSizeTCP(stream);
+			Console.WriteLine("Get filesize: " + fileSize);
 			receiveFile(args[1], stream);
+
 			client.GetStream().Close();
+			Console.WriteLine("Close stream");
 			client.Close();
+			Console.WriteLine("Close client");
 			clientSocket.Stop();
+			Console.WriteLine("Stop socket");
 		}
 
 		/// <summary>
@@ -52,10 +60,11 @@ namespace tcp
 		private void receiveFile (String fileName, NetworkStream io)
 		{
 			FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-
+			Console.WriteLine("Filestream created.");
 			try
 			{
 				io.CopyTo(fs, BUFSIZE);
+				Console.WriteLine("Copy to filestream.");
 			}
 			catch (Exception e)
 			{
@@ -63,6 +72,7 @@ namespace tcp
 				throw;
 			}
 			fs.Close();
+			Console.WriteLine("Filestream closed.");
 		}
 
 		/// <summary>

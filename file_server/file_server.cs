@@ -43,20 +43,25 @@ namespace tcp
 					TcpClient client = serverSocket.AcceptTcpClient();
 					Console.WriteLine("Client connected!");
 					NetworkStream stream = client.GetStream();
+					Console.WriteLine("Stream created.");
 
-					while (stream.Read(readBuffer, 0, readBuffer.Length) != 0)
-					{
-						clientData = LIB.readTextTCP(stream);
-					}
+					clientData = LIB.readTextTCP(stream);
+					Console.WriteLine("Read data from client.");
 
 					String requestedFile = LIB.extractFileName(clientData);
+					Console.WriteLine("Extracted data from client.");
 					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
 					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
 					SendFile(requestedFile, fileLength, stream);
+					Console.WriteLine("File sent.");
 
 					client.GetStream().Close();
+					Console.WriteLine("Close stream");
 					client.Close();
+					Console.WriteLine("Close client");
+					serverSocket.Stop();
+					Console.WriteLine("Stop socket");
 				}
 				catch (Exception e)
 				{
@@ -84,7 +89,9 @@ namespace tcp
 			Byte[] size = BitConverter.GetBytes(fileSize);
 			try
 			{
+				Console.WriteLine("Sending filesize.");
 				io.Write(size, 0, 0);
+				Console.WriteLine("Sent filesize.");
 			}
 			catch (Exception e)
 			{
@@ -96,7 +103,9 @@ namespace tcp
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 			try
 			{
+				Console.WriteLine("Sending filestream over stream.");
 				fs.CopyTo(io, BUFSIZE);
+				Console.WriteLine("Sent filestream.");
 			}
 			catch (Exception e)
 			{
@@ -104,6 +113,7 @@ namespace tcp
 				throw;
 			}
 			fs.Close();
+			Console.WriteLine("Filestream closed.");
 		}
 
 		/// <summary>
