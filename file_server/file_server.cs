@@ -49,7 +49,7 @@ namespace tcp
 					Console.WriteLine("Read data from client.");
 
 					String requestedFile = LIB.extractFileName(clientData);
-					Console.WriteLine("Extracted data from client.");
+					Console.WriteLine("Extracted " + requestedFile + "from client.");
 					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
 					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
@@ -86,11 +86,10 @@ namespace tcp
 		private void SendFile (String fileName, long fileSize, NetworkStream io)
 		{
 			//Send filesize
-			Byte[] size = BitConverter.GetBytes(fileSize);
 			try
 			{
 				Console.WriteLine("Sending filesize.");
-				io.Write(size, 0, 0);
+				LIB.writeTextTCP(io, fileSize.ToString());
 				Console.WriteLine("Sent filesize.");
 			}
 			catch (Exception e)
