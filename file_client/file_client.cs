@@ -32,6 +32,8 @@ namespace tcp
 			Console.WriteLine("Connected to server!");
 
 			NetworkStream stream = client.GetStream();
+			LIB.writeTextTCP(stream, args[1]);
+			long fileSize = LIB.getFileSizeTCP(stream);
 			receiveFile(args[1], stream);
 			client.GetStream().Close();
 			client.Close();
@@ -53,7 +55,7 @@ namespace tcp
 
 			try
 			{
-				io.CopyTo(fs);
+				io.CopyTo(fs, BUFSIZE);
 			}
 			catch (Exception e)
 			{

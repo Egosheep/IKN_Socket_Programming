@@ -44,8 +44,7 @@ namespace tcp
 					Console.WriteLine("Client connected!");
 					NetworkStream stream = client.GetStream();
 
-					int streamCheck;
-					while ((streamCheck = stream.Read(readBuffer, 0, readBuffer.Length)) != 0)
+					while (stream.Read(readBuffer, 0, readBuffer.Length) != 0)
 					{
 						clientData = LIB.readTextTCP(stream);
 					}
@@ -92,7 +91,6 @@ namespace tcp
 				Debug.WriteLine(e);
 				throw;
 			}
-			io.Flush();
 
 			//Send file
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
