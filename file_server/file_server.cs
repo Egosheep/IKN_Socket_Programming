@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -27,7 +28,43 @@ namespace tcp
  		/// </summary>
 		private file_server ()
 		{
-			// TO DO Your own code
+			Byte[] readBuffer = new Byte[BUFSIZE];
+			String clientData = null;
+			IPAddress localAddress = IPAddress.Parse("10.0.0.1");
+			TcpListener serverSocket = new TcpListener(localAddress, PORT);
+			serverSocket.Start();
+
+			while(true)
+			{
+				try
+				{
+					Console.WriteLine("Waiting for connection...");
+
+					TcpClient client = serverSocket.AcceptTcpClient();
+					Console.WriteLine("Client connected!");
+					NetworkStream stream = client.GetStream();
+
+					int streamCheck;
+					while ((streamCheck = stream.Read(readBuffer, 0, readBuffer.Length)) != 0)
+					{
+						clientData = LIB.readTextTCP(stream);
+					}
+
+					String requestedFile = LIB.extractFileName(clientData);
+					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
+						//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
+
+					SendFile(requestedFile, fileLength, stream);
+
+					client.GetStream().Close();
+					client.Close();
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e);
+					throw;
+				}
+			}
 		}
 
 		/// <summary>
@@ -42,9 +79,33 @@ namespace tcp
 		/// <param name='io'>
 		/// Network stream for writing to the client.
 		/// </param>
-		private void sendFile (String fileName, long fileSize, NetworkStream io)
+		private void SendFile (String fileName, long fileSize, NetworkStream io)
 		{
-			// TO DO Your own code
+			//Send filesize
+			Byte[] size = BitConverter.GetBytes(fileSize);
+			try
+			{
+				io.Write(size, 0, 0);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				throw;
+			}
+			io.Flush();
+
+			//Send file
+			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Write);
+			try
+			{
+				fs.CopyTo(io, BUFSIZE);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				throw;
+			}
+			fs.Close();
 		}
 
 		/// <summary>
@@ -56,7 +117,7 @@ namespace tcp
 		public static void Main (string[] args)
 		{
 			Console.WriteLine ("Server starts...");
-			new file_server();
+			var server =  new file_server();
 		}
 	}
 }
