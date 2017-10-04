@@ -25,11 +25,6 @@ namespace tcp
 		/// </param>
 		private file_client (string[] args)
 		{
-			IPAddress localAddress = IPAddress.Parse("10.0.0.2");
-			TcpListener clientSocket = new TcpListener(localAddress, PORT);
-			clientSocket.Start();
-			Console.WriteLine("Connected to server!");
-
 			TcpClient client = new TcpClient(args[0], PORT);
 			NetworkStream stream = client.GetStream();
 			Console.WriteLine("Client stream connected");
@@ -44,8 +39,6 @@ namespace tcp
 			Console.WriteLine("Close stream");
 			client.Close();
 			Console.WriteLine("Close client");
-			clientSocket.Stop();
-			Console.WriteLine("Stop socket");
 		}
 
 		/// <summary>
