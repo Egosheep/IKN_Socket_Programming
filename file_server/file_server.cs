@@ -98,7 +98,7 @@ namespace tcp
 				Debug.WriteLine(e);
 				throw;
 			}
-
+            */
 
 			//Send file
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
