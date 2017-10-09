@@ -31,8 +31,8 @@ namespace tcp
 
 			LIB.writeTextTCP(stream, args[1]);
 			Console.WriteLine("Write " + args[1] + " to server");
-			long fileSize = LIB.getFileSizeTCP(stream);
-			Console.WriteLine("Get filesize: " + fileSize);
+			//long fileSize = LIB.getFileSizeTCP(stream);
+			//Console.WriteLine("Get filesize: " + fileSize);
 			receiveFile(args[1], stream);
 
 			client.GetStream().Close();

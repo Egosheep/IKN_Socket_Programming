@@ -50,10 +50,11 @@ namespace tcp
 
 					String requestedFile = LIB.extractFileName(clientData);
 					Console.WriteLine("Extracted " + requestedFile + "from client.");
-					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
+
+					//long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
 					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
-					SendFile(requestedFile, fileLength, stream);
+					SendFile(requestedFile, stream);
 					Console.WriteLine("File sent.");
 
 					client.GetStream().Close();
@@ -81,9 +82,10 @@ namespace tcp
 		/// <param name='io'>
 		/// Network stream for writing to the client.
 		/// </param>
-		private void SendFile (String fileName, long fileSize, NetworkStream io)
+		private void SendFile (String fileName,/* long fileSize, */NetworkStream io)
 		{
 			//Send filesize
+            /*
 			try
 			{
 				Console.WriteLine("Sending filesize.");
@@ -95,6 +97,7 @@ namespace tcp
 				Debug.WriteLine(e);
 				throw;
 			}
+            */
 
 			//Send file
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
