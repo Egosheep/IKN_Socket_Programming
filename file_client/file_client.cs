@@ -32,10 +32,14 @@ namespace tcp
 			LIB.writeTextTCP(stream, args[1]);
 			Console.WriteLine("Write " + args[1] + " to server");
 			long fileSize = LIB.getFileSizeTCP(stream);
-			Console.WriteLine("Get filesize: " + fileSize);
+		    string fileName = LIB.extractFileName(args[1]);
+
+
+            Console.WriteLine("Get filesize: " + fileSize);
+
 		    if (fileSize > 0)
 		    {
-			    receiveFile(args[1], stream);
+			    receiveFile(AppDomain.CurrentDomain.BaseDirectory + "/" + fileName, stream);
             }
 		    else
 		    {
