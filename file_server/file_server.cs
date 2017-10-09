@@ -51,17 +51,35 @@ namespace tcp
 					String requestedFile = LIB.extractFileName(clientData);
 					Console.WriteLine("Extracted " + requestedFile + "from client.");
 
-					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + requestedFile);
-				    Console.WriteLine($"Fuld sti:\n{AppDomain.CurrentDomain.BaseDirectory}/{requestedFile} \nFilstørrelse: {fileLength}");
-				    Console.WriteLine(clientData);
-				    
+				    long filePathFileLength = LIB.check_File_Exists(clientData);
 
-					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
+                    long baseDirFileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + requestedFile);
+                    
+				    Console.WriteLine($"Fuld sti:\n{AppDomain.CurrentDomain.BaseDirectory}/{requestedFile} \nFilstørrelse: {baseDirFileLength}");
+				    Console.WriteLine($"{clientData}\nstørrelse:{filePathFileLength}");
 
+                    if (filePathFileLength > 0) //tjekker om filen findes på den givne sti
+				    {
+                        LIB.writeTextTCP(stream, filePathFileLength.ToString());
+				        SendFile(clientData,stream);
+				        Console.WriteLine("File sent from given path.");
+                    }
+                    else if(baseDirFileLength > 0) //tjekker om filen findes i serverens basemappe
+                    {
+                        LIB.writeTextTCP(stream, baseDirFileLength.ToString());
+                        SendFile(requestedFile, stream);
+                        Console.WriteLine("File sent from base dir.");
+                    }
+                    else
+                    {
+                        LIB.writeTextTCP(stream, 0.ToString());
+                    }
+                    //new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
+                    /*
 					SendFile(requestedFile, stream);
 					Console.WriteLine("File sent.");
-
-					client.GetStream().Close();
+                    */
+                    client.GetStream().Close();
 					Console.WriteLine("Close stream");
 					client.Close();
 					Console.WriteLine("Close client");

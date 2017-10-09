@@ -31,11 +31,17 @@ namespace tcp
 
 			LIB.writeTextTCP(stream, args[1]);
 			Console.WriteLine("Write " + args[1] + " to server");
-			//long fileSize = LIB.getFileSizeTCP(stream);
-			//Console.WriteLine("Get filesize: " + fileSize);
-			receiveFile(args[1], stream);
-
-			client.GetStream().Close();
+			long fileSize = LIB.getFileSizeTCP(stream);
+			Console.WriteLine("Get filesize: " + fileSize);
+		    if (fileSize > 0)
+		    {
+			    receiveFile(args[1], stream);
+            }
+		    else
+		    {
+		        Console.WriteLine("File does not exist on server");
+		    }
+            client.GetStream().Close();
 			Console.WriteLine("Close stream");
 			client.Close();
 			Console.WriteLine("Close client");
