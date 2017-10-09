@@ -51,8 +51,8 @@ namespace tcp
 					String requestedFile = LIB.extractFileName(clientData);
 					Console.WriteLine("Extracted " + requestedFile + "from client.");
 
-					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
-				    Console.WriteLine($"Fuld sti:\n{AppDomain.CurrentDomain.BaseDirectory}\\{requestedFile} \nFilstørrelse: {fileLength}");
+					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + requestedFile);
+				    Console.WriteLine($"Fuld sti:\n{AppDomain.CurrentDomain.BaseDirectory}/{requestedFile} \nFilstørrelse: {fileLength}");
 					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
 					SendFile(requestedFile, stream);
