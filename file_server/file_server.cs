@@ -88,7 +88,7 @@ namespace tcp
 			{
 				Console.WriteLine("Sending filesize.");
 				LIB.writeTextTCP(io, fileSize.ToString());
-				Console.WriteLine("Sent filesize.");
+				Console.WriteLine("Sent filesize"+ fileSize);
 			}
 			catch (Exception e)
 			{
