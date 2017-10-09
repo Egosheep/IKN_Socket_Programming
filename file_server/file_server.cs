@@ -53,6 +53,9 @@ namespace tcp
 
 					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + requestedFile);
 				    Console.WriteLine($"Fuld sti:\n{AppDomain.CurrentDomain.BaseDirectory}/{requestedFile} \nFilstørrelse: {fileLength}");
+				    Console.WriteLine(clientData);
+				    
+
 					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
 					SendFile(requestedFile, stream);
