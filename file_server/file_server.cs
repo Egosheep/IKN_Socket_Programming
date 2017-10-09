@@ -52,29 +52,16 @@ namespace tcp
 					Console.WriteLine("Extracted " + requestedFile + "from client.");
 
                     //til filer på vilkårlige placeringer
-				    long filePathFileLength = LIB.check_File_Exists(clientData);
+				    long FileLength = LIB.check_File_Exists(clientData);
 
-                    //til filer i serverens basemappe
-                    long baseDirFileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + requestedFile);
-                    
-
-                    if (filePathFileLength > 0) //tjekker om filen findes på den givne sti
+                    if (FileLength > 0) //tjekker om filen findes på den givne sti
 				    {
 				        Console.WriteLine($"Fuld sti:{clientData}" +
-				                          $"\nstørrelse:{filePathFileLength}");
+				                          $"\nstørrelse:{FileLength}");
 
-                        LIB.writeTextTCP(stream, filePathFileLength.ToString()); //sender størrelsen på filen til client
+                        LIB.writeTextTCP(stream, FileLength.ToString()); //sender størrelsen på filen til client
 				        SendFile(clientData,stream);
-				        Console.WriteLine("File sent from given path.");
-                    }
-                    else if(baseDirFileLength > 0) //tjekker om filen findes i serverens basemappe
-                    {
-                        Console.WriteLine($"Fuld sti:{AppDomain.CurrentDomain.BaseDirectory}/{requestedFile} " +
-                                          $"\nFilstørrelse: {baseDirFileLength}");
-
-                        LIB.writeTextTCP(stream, baseDirFileLength.ToString());  //sender størrelsen på filen til client
-                        SendFile(requestedFile, stream);
-                        Console.WriteLine("File sent from base dir.");
+				        Console.WriteLine("File sent.");
                     }
                     else
                     {
