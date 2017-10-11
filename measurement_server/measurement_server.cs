@@ -29,17 +29,21 @@ namespace measurement_server
 			        
                 Console.WriteLine("Recieved: " + dataString+ " from client.");
                 
+                
+
 				//Get choice from client
 				switch (dataString.ToLower())
 				{
 
 					case "l":
-						Byte[] sendLoadData = File.ReadAllBytes("/proc/loadavg");
+					    udpServer.Connect(clientEP); //Establish connection to client
+                        Byte[] sendLoadData = File.ReadAllBytes("/proc/loadavg");
 						udpServer.Send(sendLoadData, sendLoadData.Length);
 						break;
 
 					case "u":
-						Byte[] sendUptimeData = File.ReadAllBytes("/proc/uptime");
+					    udpServer.Connect(clientEP); //Establish connection to client 
+                        Byte[] sendUptimeData = File.ReadAllBytes("/proc/uptime");
 						udpServer.Send(sendUptimeData, sendUptimeData.Length);
 						break;
 
