@@ -50,13 +50,25 @@ namespace tcp
 
 					String requestedFile = LIB.extractFileName(clientData);
 					Console.WriteLine("Extracted " + requestedFile + "from client.");
-					long fileLength = LIB.check_File_Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile);
-					//new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + requestedFile).Length;
 
-					SendFile(requestedFile, fileLength, stream);
-					Console.WriteLine("File sent.");
+                    //til filer på vilkårlige placeringer
+				    long FileLength = LIB.check_File_Exists(clientData);
 
-					client.GetStream().Close();
+                    if (FileLength > 0) //tjekker om filen findes på den givne sti
+				    {
+				        Console.WriteLine($"Fuld sti:{clientData}" +
+				                          $"\nstørrelse:{FileLength}");
+
+                        LIB.writeTextTCP(stream, FileLength.ToString()); //sender størrelsen på filen til client
+				        SendFile(clientData,stream);
+				        Console.WriteLine("File sent.");
+                    }
+                    else
+                    {
+                        LIB.writeTextTCP(stream, 0.ToString()); //hvis filen ikke findes skrives der blot 0 til clienten
+                    }
+          
+                    client.GetStream().Close();
 					Console.WriteLine("Close stream");
 					client.Close();
 					Console.WriteLine("Close client");
@@ -81,20 +93,22 @@ namespace tcp
 		/// <param name='io'>
 		/// Network stream for writing to the client.
 		/// </param>
-		private void SendFile (String fileName, long fileSize, NetworkStream io)
+		private void SendFile (String fileName,/* long fileSize, */NetworkStream io)
 		{
 			//Send filesize
+            /*
 			try
 			{
 				Console.WriteLine("Sending filesize.");
 				LIB.writeTextTCP(io, fileSize.ToString());
-				Console.WriteLine("Sent filesize.");
+				Console.WriteLine("Sent filesize"+ fileSize);
 			}
 			catch (Exception e)
 			{
 				Debug.WriteLine(e);
 				throw;
 			}
+            */
 
 			//Send file
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
