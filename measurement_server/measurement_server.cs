@@ -25,9 +25,12 @@ namespace measurement_server
 				Console.WriteLine("Client created.");
 				Console.WriteLine("Awaiting input:");
 				Byte[] data = udpServer.Receive(ref clientEP);
-				Console.WriteLine("Recieved: " + data.ToString() + " from client.");
+                string dataString = Encoding.ASCII.GetString(data);
+			        
+                Console.WriteLine("Recieved: " + dataString+ " from client.");
+                
 				//Get choice from client
-				switch (data.ToString().ToLower())
+				switch (dataString.ToLower())
 				{
 
 					case "l":
