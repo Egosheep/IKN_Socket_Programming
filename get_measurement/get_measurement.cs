@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -69,11 +70,11 @@ namespace get_measurement
 		    }
 		    catch (System.FormatException)
 		    {
-		        Console.WriteLine($"Fej: lDen indtastede IP adresse {args[0]} har forkert format");
+		        Console.WriteLine($"Felj: Den indtastede IP adresse: {args[0]} har forkert format.");
 		    }
 		    catch (System.Net.Sockets.SocketException)
 		    {
-		        Console.WriteLine($"Kunne ikke oprette forbindelse til {args[0]}");
+		        Console.WriteLine($"Fejl: Kunne ikke oprette forbindelse til {args[0]}, indtast en valid IP.");
 		    }
         }
 
