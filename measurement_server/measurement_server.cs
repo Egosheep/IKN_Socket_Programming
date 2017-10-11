@@ -25,7 +25,7 @@ namespace measurement_server
 				Console.WriteLine("Client created.");
 				Console.WriteLine("Awaiting input:");
 				Byte[] data = udpServer.Receive(ref clientEP);
-                string dataString = Encoding.ASCII.GetString(data);
+                String dataString = Encoding.ASCII.GetString(data);
 			        
                 Console.WriteLine("Recieved: " + dataString+ " from client.");
                 
@@ -37,14 +37,26 @@ namespace measurement_server
 
 					case "l":
 					    udpServer.Connect(clientEP); //Establish connection to client
-                        Byte[] sendLoadData = File.ReadAllBytes("/proc/loadavg");
+					    Console.WriteLine("Connected to client.");
+
+                        String LoadData = File.ReadAllText("/proc/loadavg");
+					    Byte[] sendLoadData = Encoding.ASCII.GetBytes(LoadData);
+
+                        Console.WriteLine("Loadavg retrieved");
 						udpServer.Send(sendLoadData, sendLoadData.Length);
-						break;
+					    Console.WriteLine("Data sent");
+
+                        break;
 
 					case "u":
 					    udpServer.Connect(clientEP); //Establish connection to client 
+					    Console.WriteLine("Connected to client.");
+
                         Byte[] sendUptimeData = File.ReadAllBytes("/proc/uptime");
-						udpServer.Send(sendUptimeData, sendUptimeData.Length);
+					    Console.WriteLine("uptime retrieved");
+
+                        udpServer.Send(sendUptimeData, sendUptimeData.Length);
+					    Console.WriteLine("Data sent");
 						break;
 
 					default:
