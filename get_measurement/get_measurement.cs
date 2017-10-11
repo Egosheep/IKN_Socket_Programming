@@ -66,10 +66,14 @@ namespace get_measurement
 		        //		Console.WriteLine("U or L, you stupido idioti.");
 		        //		break;
 		        //}
-            }
-            catch (System.FormatException)
+		    }
+		    catch (System.FormatException)
 		    {
 		        Console.WriteLine($"Fej: lDen indtastede IP adresse {args[0]} har forkert format");
+		    }
+		    catch (System.Net.Sockets.SocketException)
+		    {
+		        Console.WriteLine($"Kunne ikke oprette forbindelse til {args[0]}");
 		    }
         }
 
