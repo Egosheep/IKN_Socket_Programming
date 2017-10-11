@@ -30,44 +30,35 @@ namespace get_measurement
 		        udpClient.Connect(serverEP);
 		        Console.WriteLine("Connected to server.");
 
+		        Byte[] sendLetter;
 		        Byte[] recData;
-		        if (args[1].ToLower() == "l" || args[1].ToLower() == "u")
-		        {
-		            Byte[] sendLetter = Encoding.ASCII.GetBytes(args[1]);
-		            udpClient.Send(sendLetter, sendLetter.Length);
-		            Console.WriteLine(args[1] + " sendt til server");
+                switch (args[1].ToLower())
+                {
+                    case "l":
+                        sendLetter = Encoding.ASCII.GetBytes(args[1]);
+                        udpClient.Send(sendLetter, sendLetter.Length);
+                        Console.WriteLine(args[1] + " sendt til server");
 
-		            recData = udpClient.Receive(ref serverEP);
-		            Console.WriteLine("Information fra server modtaget:");
-		            Console.WriteLine(Encoding.ASCII.GetString(recData));
-		        }
-		        else
-		        {
-		            Console.WriteLine("U or L, you stupido idioti.");
-		        }
-		        //switch (args[1].ToLower())
-		        //{
-		        //	case "l":
-		        //		Byte[] sendL = Encoding.ASCII.GetBytes(args[1]);
-		        //		udpClient.Send(sendL, sendL.Length);
-		        //		recData = udpClient.Receive(ref serverEP);
-		        //		Console.WriteLine(Encoding.ASCII.GetString(recData));
-		        //		Console.ReadKey();
-		        //		break;
+                        recData = udpClient.Receive(ref serverEP);
+                        Console.WriteLine("Information fra server modtaget:");
+                        Console.WriteLine(Encoding.ASCII.GetString(recData));
+                        break;
 
-		        //	case "u":
-		        //		Byte[] sendU = Encoding.ASCII.GetBytes(args[1]);
-		        //		udpClient.Send(sendU, sendU.Length);
-		        //		recData = udpClient.Receive(ref serverEP);
-		        //		Console.WriteLine(Encoding.ASCII.GetString(recData));
-		        //		Console.ReadKey();
-		        //		break;
+                    case "u":
+                        sendLetter = Encoding.ASCII.GetBytes(args[1]);
+                        udpClient.Send(sendLetter, sendLetter.Length);
+                        Console.WriteLine(args[1] + " sendt til server");
 
-		        //	default:
-		        //		Console.WriteLine("U or L, you stupido idioti.");
-		        //		break;
-		        //}
-		    }
+                        recData = udpClient.Receive(ref serverEP);
+                        Console.WriteLine("Information fra server modtaget:");
+                        Console.WriteLine(Encoding.ASCII.GetString(recData));
+                        break;
+
+                    default:
+                        Console.WriteLine("U or L, you stupido idioti.");
+                        break;
+                }
+            }
 		    catch (System.FormatException)
 		    {
 		        Console.WriteLine($"Felj: Den indtastede IP adresse: {args[0]} har forkert format.");

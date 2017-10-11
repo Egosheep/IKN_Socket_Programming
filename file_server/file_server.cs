@@ -30,7 +30,7 @@ namespace tcp
 		{
 			Byte[] readBuffer = new Byte[BUFSIZE];
 			String clientData = null;
-			IPAddress localAddress = IPAddress.Parse("10.0.0.1");
+		    IPAddress localAddress = IPAddress.Any; 
 			TcpListener serverSocket = new TcpListener(localAddress, PORT);
 			serverSocket.Start();
 
