@@ -30,7 +30,7 @@ namespace get_measurement
 		    {
 		        Byte[] sendLetter = Encoding.ASCII.GetBytes(args[1]);
 		        udpClient.Send(sendLetter, sendLetter.Length);
-		        Console.WriteLine(args[1] + "sendt til server");
+		        Console.WriteLine(args[1] + " sendt til server");
 
                 recData = udpClient.Receive(ref serverEP);
 		        Console.WriteLine("Information fra server modtaget:");

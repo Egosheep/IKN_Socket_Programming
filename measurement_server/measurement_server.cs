@@ -22,16 +22,14 @@ namespace measurement_server
 			while (true)
 			{
 				IPEndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);
-				Console.WriteLine("Client created.");
+                Console.WriteLine("Client created.");
 				Console.WriteLine("Awaiting input:");
-				Byte[] data = udpServer.Receive(ref clientEP);
+
+                Byte[] data = udpServer.Receive(ref clientEP);
                 String dataString = Encoding.ASCII.GetString(data);
-			        
                 Console.WriteLine("Recieved: " + dataString+ " from client.");
                 
-                
-
-				//Get choice from client
+                //Get choice from client
 				switch (dataString.ToLower())
 				{
 
@@ -39,11 +37,11 @@ namespace measurement_server
 					    udpServer.Connect(clientEP); //Establish connection to client
 					    Console.WriteLine("Connected to client.");
 
-                        String LoadData = File.ReadAllText("/proc/loadavg");
-					    Byte[] sendLoadData = Encoding.ASCII.GetBytes(LoadData);
-
+                        String loadavgData = File.ReadAllText("/proc/loadavg");
+					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData);
                         Console.WriteLine("Loadavg retrieved");
-						udpServer.Send(sendLoadData, sendLoadData.Length);
+
+						udpServer.Send(loadavgDataBytes, loadavgDataBytes.Length);
 					    Console.WriteLine("Data sent");
 
                         break;
@@ -51,11 +49,12 @@ namespace measurement_server
 					case "u":
 					    udpServer.Connect(clientEP); //Establish connection to client 
 					    Console.WriteLine("Connected to client.");
+                        
+                        String uptimeData = File.ReadAllText("/proc/uptime");
+					    Byte[] uptimeDataBytes = Encoding.ASCII.GetBytes(uptimeData);
+                        Console.WriteLine("uptime retrieved");
 
-                        Byte[] sendUptimeData = File.ReadAllBytes("/proc/uptime");
-					    Console.WriteLine("uptime retrieved");
-
-                        udpServer.Send(sendUptimeData, sendUptimeData.Length);
+                        udpServer.Send(uptimeDataBytes, uptimeDataBytes.Length);
 					    Console.WriteLine("Data sent");
 						break;
 
