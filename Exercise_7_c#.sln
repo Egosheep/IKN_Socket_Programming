@@ -1,11 +1,17 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "file_server", "file_server\file_server.csproj", "{74B158F5-42EC-46A9-9AC7-E205635B23E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "file_client", "file_client\file_client.csproj", "{EE28A31A-6194-40D8-9478-022D47CB6517}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIB", "LIB\LIB.csproj", "{B74C6B12-6130-4C53-B95D-4F6F998A24CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "get_measurement", "get_measurement\get_measurement.csproj", "{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "measurement_server", "measurement_server\measurement_server.csproj", "{76155DF5-F7D8-41D6-92D0-2F797321A7BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +23,28 @@ Global
 		{74B158F5-42EC-46A9-9AC7-E205635B23E9}.Debug|x86.Build.0 = Debug|x86
 		{74B158F5-42EC-46A9-9AC7-E205635B23E9}.Release|x86.ActiveCfg = Release|x86
 		{74B158F5-42EC-46A9-9AC7-E205635B23E9}.Release|x86.Build.0 = Release|x86
-		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Debug|x86.Build.0 = Debug|Any CPU
-		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Release|x86.ActiveCfg = Release|Any CPU
-		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Release|x86.Build.0 = Release|Any CPU
 		{EE28A31A-6194-40D8-9478-022D47CB6517}.Debug|x86.ActiveCfg = Debug|x86
 		{EE28A31A-6194-40D8-9478-022D47CB6517}.Debug|x86.Build.0 = Debug|x86
 		{EE28A31A-6194-40D8-9478-022D47CB6517}.Release|x86.ActiveCfg = Release|x86
 		{EE28A31A-6194-40D8-9478-022D47CB6517}.Release|x86.Build.0 = Release|x86
+		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Debug|x86.Build.0 = Debug|Any CPU
+		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Release|x86.ActiveCfg = Release|Any CPU
+		{B74C6B12-6130-4C53-B95D-4F6F998A24CC}.Release|x86.Build.0 = Release|Any CPU
+		{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}.Debug|x86.ActiveCfg = Debug|x86
+		{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}.Debug|x86.Build.0 = Debug|x86
+		{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}.Release|x86.ActiveCfg = Release|x86
+		{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}.Release|x86.Build.0 = Release|x86
+		{76155DF5-F7D8-41D6-92D0-2F797321A7BA}.Debug|x86.ActiveCfg = Debug|x86
+		{76155DF5-F7D8-41D6-92D0-2F797321A7BA}.Debug|x86.Build.0 = Debug|x86
+		{76155DF5-F7D8-41D6-92D0-2F797321A7BA}.Release|x86.ActiveCfg = Release|x86
+		{76155DF5-F7D8-41D6-92D0-2F797321A7BA}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F708363A-9D62-4EA5-960D-2F53209B19EF}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = file_server\file_server.csproj
