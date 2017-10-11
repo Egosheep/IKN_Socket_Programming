@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E230DEDB-8AD2-44F6-B1A9-C590F80E7914}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>file_client</RootNamespace>
-    <AssemblyName>file_client</AssemblyName>
+    <RootNamespace>get_measurement</RootNamespace>
+    <AssemblyName>get_measurement</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
