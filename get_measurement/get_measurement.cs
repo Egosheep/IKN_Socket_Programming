@@ -26,7 +26,7 @@ namespace get_measurement
 			Console.WriteLine("Connected to server.");
 
 			Byte[] recData;
-			switch (args.ToString().ToLower())
+			switch (args[1].ToLower())
 			{
 				case "l":
 					Byte[] sendL = Encoding.ASCII.GetBytes(args[1]);
