@@ -55,7 +55,7 @@ namespace tcp
             }
 		    catch (System.Net.Sockets.SocketException)
 		    {
-		        Console.WriteLine($"Fejl: Kunne ikke oprette forbindelse til {args[0]}, indtast en valid IP.");
+		        Console.WriteLine($"Fejl: Kunne ikke oprette forbindelse til {args[0]}, indtast en valid IP adresse.");
 		    }
            
 		}
