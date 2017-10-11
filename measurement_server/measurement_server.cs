@@ -21,7 +21,7 @@ namespace measurement_server
 
 			while (true)
 			{
-				IPEndPoint clientEP = new IPEndPoint(IPAddress.Any, PORT);
+				IPEndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);
 				Console.WriteLine("Client created.");
 				Console.WriteLine("Awaiting input:");
 				Byte[] data = udpServer.Receive(ref clientEP);

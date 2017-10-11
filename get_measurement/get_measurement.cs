@@ -15,7 +15,7 @@ namespace get_measurement
 
 		private get_measurement(string[] args)
 		{
-			IPAddress serverAddress = IPAddress.Parse("10.0.0.1");
+			IPAddress serverAddress = IPAddress.Parse(args[0]);
 			var udpClient = new UdpClient(PORT);
 			Console.WriteLine("Client started.");
 
