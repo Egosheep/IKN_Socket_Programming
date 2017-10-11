@@ -25,31 +25,39 @@ namespace tcp
 		/// </param>
 		private file_client (string[] args)
 		{
-			TcpClient client = new TcpClient(args[0], PORT);
-			NetworkStream stream = client.GetStream();
-			Console.WriteLine("Client stream connected");
-
-			LIB.writeTextTCP(stream, args[1]);
-			Console.WriteLine("Write " + args[1] + " to server");
-
-			long fileSize = LIB.getFileSizeTCP(stream);
-		    Console.WriteLine("Get filesize: " + fileSize);
-
-            string fileName = LIB.extractFileName(args[1]); //Hvis en sti indtastes findes filnavnet fra denne.
-
-		    if (fileSize > 0)
+		    try
 		    {
-			    receiveFile(AppDomain.CurrentDomain.BaseDirectory + "/" + fileName, stream);
+		        TcpClient client = new TcpClient(args[0], PORT);
+		        NetworkStream stream = client.GetStream();
+		        Console.WriteLine("Client stream connected");
+
+		        LIB.writeTextTCP(stream, args[1]);
+		        Console.WriteLine("Write " + args[1] + " to server");
+
+		        long fileSize = LIB.getFileSizeTCP(stream);
+		        Console.WriteLine("Get filesize: " + fileSize);
+
+		        string fileName = LIB.extractFileName(args[1]); //Hvis en sti indtastes findes filnavnet fra denne.
+
+		        if (fileSize > 0)
+		        {
+		            receiveFile(AppDomain.CurrentDomain.BaseDirectory + "/" + fileName, stream);
+		        }
+		        else
+		        {
+		            Console.WriteLine("File does not exist on server");
+		        }
+
+		        client.GetStream().Close();
+		        Console.WriteLine("Close stream");
+		        client.Close();
+		        Console.WriteLine("Close client");
             }
-		    else
+		    catch (System.Net.Sockets.SocketException)
 		    {
-		        Console.WriteLine("File does not exist on server");
+		        Console.WriteLine($"Fejl: Kunne ikke oprette forbindelse til {args[0]}, indtast en valid IP.");
 		    }
-
-            client.GetStream().Close();
-			Console.WriteLine("Close stream");
-			client.Close();
-			Console.WriteLine("Close client");
+           
 		}
 
 		/// <summary>
