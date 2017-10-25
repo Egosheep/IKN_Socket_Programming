@@ -95,21 +95,6 @@ namespace tcp
 		/// </param>
 		private void SendFile (String fileName,/* long fileSize, */NetworkStream io)
 		{
-			//Send filesize
-            /*
-			try
-			{
-				Console.WriteLine("Sending filesize.");
-				LIB.writeTextTCP(io, fileSize.ToString());
-				Console.WriteLine("Sent filesize"+ fileSize);
-			}
-			catch (Exception e)
-			{
-				Debug.WriteLine(e);
-				throw;
-			}
-            */
-
 			//Send file
 			FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 			try
