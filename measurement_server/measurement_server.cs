@@ -15,7 +15,6 @@ namespace measurement_server
 
 		private measurement_server()
 		{
-			//IPAddress localAddress = IPAddress.Parse("10.0.0.1");
 			var udpServer = new UdpClient(PORT);
 			Console.WriteLine("Server started.");
 
@@ -32,21 +31,17 @@ namespace measurement_server
                 //Get choice from client
 				switch (dataString.ToLower())
 				{
-
-					case "l":
-					    
-                        String loadavgData = File.ReadAllText("/proc/loadavg");
-					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData); 
+                    case "l":
+					    String loadavgData = File.ReadAllText("/proc/loadavg");
+					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData);
                         Console.WriteLine("Loadavg retrieved");
-
+                        
 						udpServer.Send(loadavgDataBytes, loadavgDataBytes.Length, clientEP);
 					    Console.WriteLine("Data sent");
-
                         break;
 
 					case "u":
-					    
-                        String uptimeData = File.ReadAllText("/proc/uptime");
+					    String uptimeData = File.ReadAllText("/proc/uptime");
 					    Byte[] uptimeDataBytes = Encoding.ASCII.GetBytes(uptimeData);
                         Console.WriteLine("uptime retrieved");
 

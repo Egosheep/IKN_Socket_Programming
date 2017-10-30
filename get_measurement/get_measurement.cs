@@ -28,7 +28,7 @@ namespace get_measurement
 		        Console.WriteLine("Endpoint established.");
 
 		        udpClient.Connect(serverEP);
-		        Console.WriteLine("Connected to server.");
+		        Console.WriteLine("Remote host established.");
 
 		        Byte[] sendLetter;
 		        Byte[] recData;
