@@ -28,7 +28,6 @@ namespace tcp
  		/// </summary>
 		private file_server ()
 		{
-			Byte[] readBuffer = new Byte[BUFSIZE];
 			String clientData = null;
 		    IPAddress localAddress = IPAddress.Any; 
 			TcpListener serverSocket = new TcpListener(localAddress, PORT);

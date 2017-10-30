@@ -39,7 +39,7 @@ namespace tcp
 
 		        string fileName = LIB.extractFileName(args[1]); //Hvis en sti indtastes findes filnavnet fra denne.
 
-		        if (fileSize > 0)
+		        if (fileSize > 0) //Check if file exists on server, and recieve.
 		        {
 		            receiveFile(AppDomain.CurrentDomain.BaseDirectory + "/" + fileName, stream);
 		        }
