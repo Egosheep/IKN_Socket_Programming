@@ -15,14 +15,14 @@ namespace measurement_server
 
 		private measurement_server()
 		{
-			var udpServer = new UdpClient(PORT);
-			Console.WriteLine("Server started.");
-
+		    Console.WriteLine("Server started.");
+            var udpServer = new UdpClient(PORT);
+            Console.WriteLine("Client created.");
 			while (true)
 			{
 				IPEndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);
-                Console.WriteLine("Client created.");
-				Console.WriteLine("Awaiting input:");
+                
+				Console.WriteLine("Awaiting input...");
 
                 Byte[] data = udpServer.Receive(ref clientEP);
                 String dataString = Encoding.ASCII.GetString(data);
@@ -34,19 +34,19 @@ namespace measurement_server
                     case "l":
 					    String loadavgData = File.ReadAllText("/proc/loadavg");
 					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData);
-                        Console.WriteLine("Loadavg retrieved");
+                        Console.WriteLine("loadavg retrieved.");
                         
 						udpServer.Send(loadavgDataBytes, loadavgDataBytes.Length, clientEP);
-					    Console.WriteLine("Data sent");
+					    Console.WriteLine("Data sent.");
                         break;
 
 					case "u":
 					    String uptimeData = File.ReadAllText("/proc/uptime");
 					    Byte[] uptimeDataBytes = Encoding.ASCII.GetBytes(uptimeData);
-                        Console.WriteLine("uptime retrieved");
+                        Console.WriteLine("uptime retrieved.");
 
                         udpServer.Send(uptimeDataBytes, uptimeDataBytes.Length, clientEP);
-					    Console.WriteLine("Data sent");
+					    Console.WriteLine("Data sent.");
 						break;
 
 					default:
