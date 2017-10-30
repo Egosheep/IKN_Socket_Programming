@@ -34,27 +34,23 @@ namespace measurement_server
 				{
 
 					case "l":
-					    udpServer.Connect(clientEP); //Establish connection to client
-					    Console.WriteLine("Connected to client.");
-
+					    
                         String loadavgData = File.ReadAllText("/proc/loadavg");
-					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData);
+					    Byte[] loadavgDataBytes = Encoding.ASCII.GetBytes(loadavgData); 
                         Console.WriteLine("Loadavg retrieved");
 
-						udpServer.Send(loadavgDataBytes, loadavgDataBytes.Length);
+						udpServer.Send(loadavgDataBytes, loadavgDataBytes.Length, clientEP);
 					    Console.WriteLine("Data sent");
 
                         break;
 
 					case "u":
-					    udpServer.Connect(clientEP); //Establish connection to client 
-					    Console.WriteLine("Connected to client.");
-                        
+					    
                         String uptimeData = File.ReadAllText("/proc/uptime");
 					    Byte[] uptimeDataBytes = Encoding.ASCII.GetBytes(uptimeData);
                         Console.WriteLine("uptime retrieved");
 
-                        udpServer.Send(uptimeDataBytes, uptimeDataBytes.Length);
+                        udpServer.Send(uptimeDataBytes, uptimeDataBytes.Length, clientEP);
 					    Console.WriteLine("Data sent");
 						break;
 
