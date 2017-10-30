@@ -55,7 +55,7 @@ namespace get_measurement
                         break;
 
                     default:
-                        Console.WriteLine("U or L, you stupido idioti.");
+                        Console.WriteLine("Enter either U or L.");
                         break;
                 }
             }
